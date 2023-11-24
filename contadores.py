@@ -3,6 +3,7 @@ from PyQt5 import  uic
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QMainWindow,QApplication
 import mysql.connector
+from PyQt5 import QtWidgets
 
 class conecxion:
     def __init__(self):
@@ -19,6 +20,8 @@ class contador(QMainWindow):
         self.licom=[self.numFac,self.conFac,self.DocAfec,self.dateEdit_3,self.dateEdit_4,self.Rif,self.Cliente,self.montoIncli,self.exten,self.baseIm,self.ISVimpor,self.basenacio,self.ISVnacio,self.comboBox_4,self.comboBox_5,self.comboBox_6]
     def keyPressEvent(self,event):
         if event.key()==Qt.Key_Return:
+            
+            print(type(self.licom[15]))
             for i in range(len(self.licom)):
                 if self.licom[i].hasFocus():
                     # Si es el último QTextEdit en la lista, mueve el foco al primero
@@ -33,11 +36,13 @@ class contador(QMainWindow):
     def cosedatlicom(self):
         vec=[]
         for i in range(len(self.licom)):
-            if i<len(self.licom)-3 : vec.append(self.licom[i].text())
-            else:
-                vec.append(self.licom[i].itemData(self.licom[i].currentIndex()))
+            if(isinstance(self.licom[i],QtWidgets.QLineEdit)):
+                vec.append(self.licom[i].text())
+            elif isinstance(self.licom[i],QtWidgets.QDateEdit):
+                vec.append(self.licom[i].date())
+            elif isinstance(self.licom[i],QtWidgets.QComboBox):
+                vec.append(self.licom[i].currentText())
 
-           
         return vec
     def guardar(self):
         # Crear un cursor
