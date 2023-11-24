@@ -27,11 +27,10 @@ class contador(QMainWindow):
                     if i == len(self.licom) - 1:
                         self.guardar()
                     else:
-                     
                     # De lo contrario, mueve el foco al siguiente QTextEdit
                         self.licom[i+1].setFocus()
-
                     break
+             
     def cosedatlicom(self):
         vec=[]
         for i in range(len(self.licom)):
