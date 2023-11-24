@@ -16,7 +16,7 @@ class contador(QMainWindow):
         super().__init__()
         uic.loadUi("lapiz.ui",self)
         #una lista de los objeto qt de libro de compra
-        self.licom=[self.numFac,self.conFac,self.DocAfec,self.dateEdit_3,self.dateEdit_4,self.Rif,self.Cliente,self.montoIncli,self.exten,self.baseIm,self.ISVimpor,self.basenacio,self.ISVnacio,self.lineEdit_14,self.comboBox_4,self.comboBox_5,self.comboBox_6]
+        self.licom=[self.numFac,self.conFac,self.DocAfec,self.dateEdit_3,self.dateEdit_4,self.Rif,self.Cliente,self.montoIncli,self.exten,self.baseIm,self.ISVimpor,self.basenacio,self.ISVnacio,self.comboBox_4,self.comboBox_5,self.comboBox_6]
     def keyPressEvent(self,event):
         if event.key()==Qt.Key_Return:
             for i in range(len(self.licom)):
@@ -39,7 +39,7 @@ class contador(QMainWindow):
         # Crear un cursor
         cursor = self.con.cursor()
         datos=self.cosedat()
-        query = "INSERT INTO libcom (numfactur, columna2, columna3,,fechafactur,Rif,cliente,,,baseimportacion,,basenacional) VALUES (%s, %s, %s)"
+        query = "INSERT INTO libcom (numfactur, columna2, columna3,,fechafactur,Rif,cliente,,,baseimportacion,impuimportacion,basenacional,impunacional) VALUES (%s, %s, %s)"
         cursor.execute(query, datos)
 
         # Confirmar la transacción
