@@ -30,6 +30,10 @@ class contador(QMainWindow):
                         self.licom[i+1].setFocus()
 
                     break
+    def cosedat(self):
+        vec=[]
+        for i in range(len(self.licom)):
+            vec.append(self.licom[i].text())
     def guardar(self):
         # Crear un cursor
         cursor = self.con.cursor()
