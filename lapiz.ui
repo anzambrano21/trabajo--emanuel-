@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1879</width>
-    <height>995</height>
+    <width>1655</width>
+    <height>961</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,9 +17,9 @@
    <widget class="QTabWidget" name="tabWidget">
     <property name="geometry">
      <rect>
-      <x>-10</x>
-      <y>10</y>
-      <width>1631</width>
+      <x>-50</x>
+      <y>0</y>
+      <width>1731</width>
       <height>961</height>
      </rect>
     </property>
@@ -1572,9 +1572,9 @@ background-color: rgb(255, 255, 255);</string>
      <widget class="QTableWidget" name="tableWidget_2">
       <property name="geometry">
        <rect>
-        <x>10</x>
+        <x>50</x>
         <y>0</y>
-        <width>1891</width>
+        <width>1651</width>
         <height>192</height>
        </rect>
       </property>
@@ -1690,7 +1690,7 @@ background-color: rgb(255, 255, 255);</string>
      <widget class="QFrame" name="frame_5">
       <property name="geometry">
        <rect>
-        <x>10</x>
+        <x>30</x>
         <y>190</y>
         <width>701</width>
         <height>651</height>
@@ -5197,7 +5197,7 @@ background-color: rgb(255, 255, 0);</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1879</width>
+     <width>1655</width>
      <height>21</height>
     </rect>
    </property>
