@@ -30,16 +30,20 @@ class contador(QMainWindow):
                         self.licom[i+1].setFocus()
 
                     break
-    def cosedat(self):
+    def cosedatlicom(self):
         vec=[]
         for i in range(len(self.licom)):
-            vec.append(self.licom[i].text())
+            if i<len(self.licom)-3 : vec.append(self.licom[i].text())
+            else:
+                vec.append(self.licom[i].itemData(self.licom[i].currentIndex()))
+
+           
         return vec
     def guardar(self):
         # Crear un cursor
         cursor = self.con.cursor()
-        datos=self.cosedat()
-        query = "INSERT INTO libcom (numfactur, columna2, columna3,,fechafactur,Rif,cliente,montoimputotal,,baseimportacion,impuimportacion,basenacional,impunacional) VALUES (%s, %s, %s)"
+        datos=self.cosedatlicom()
+        query = "INSERT INTO libcom (numfactur, columna2, columna3,fechafactur,fechafactura,Rif,cliente,montoimputotal,,baseimportacion,impuimportacion,basenacional,impunacional) VALUES (%s, %s, %s)"
         cursor.execute(query, datos)
 
         # Confirmar la transacción
