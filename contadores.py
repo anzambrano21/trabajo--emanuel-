@@ -34,11 +34,12 @@ class contador(QMainWindow):
         vec=[]
         for i in range(len(self.licom)):
             vec.append(self.licom[i].text())
+        return vec
     def guardar(self):
         # Crear un cursor
         cursor = self.con.cursor()
-        
-        query = "INSERT INTO tu_tabla (columna1, columna2, columna3) VALUES (%s, %s, %s)"
+        datos=self.cosedat()
+        query = "INSERT INTO libcom (numfactur, columna2, columna3,,fechafactur,Rif,cliente,,,baseimportacion,,basenacional) VALUES (%s, %s, %s)"
         cursor.execute(query, datos)
 
         # Confirmar la transacción
