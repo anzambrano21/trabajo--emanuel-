@@ -11,6 +11,7 @@ class conecxion:
 
 class contador(QMainWindow):
     def __init__(self):
+        self.con=conecxion()
         self.ban=False
         super().__init__()
         uic.loadUi("lapiz.ui",self)
@@ -29,7 +30,17 @@ class contador(QMainWindow):
                         self.licom[i+1].setFocus()
 
                     break
+    def guardar(self):
+        # Crear un cursor
+        cursor = self.con.cursor()
+        
+        query = "INSERT INTO tu_tabla (columna1, columna2, columna3) VALUES (%s, %s, %s)"
+        cursor.execute(query, datos)
 
+        # Confirmar la transacción
+        self.con.commit()
+        # Cerrar la conexión
+        self.con.close()
 
 
 app=QApplication(sys.argv)
