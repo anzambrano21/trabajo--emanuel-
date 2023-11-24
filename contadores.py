@@ -7,13 +7,12 @@ from PyQt5 import QtWidgets
 
 class conecxion:
     def __init__(self):
-        conexion=mysql.connector.connect(user='root',password='',host='localhost',database='seniat2023',port='3306')
-        
+        self.conexion=mysql.connector.connect(user='root',password='',host='localhost',database='seniat2023',port='3306')
+    
 
 class contador(QMainWindow):
     def __init__(self):
         self.con=conecxion()
-        self.ban=False
         super().__init__()
         uic.loadUi("lapiz.ui",self)
         #una lista de los objeto qt de libro de compra
@@ -37,23 +36,30 @@ class contador(QMainWindow):
             if(isinstance(self.licom[i],QtWidgets.QLineEdit)):
                 vec.append(self.licom[i].text())
             elif isinstance(self.licom[i],QtWidgets.QDateEdit):
-                vec.append(self.licom[i].date())
+                dat=self.licom[i].date()
+                vec.append(dat.toPyDate())
+                print(vec[i])
+                
             elif isinstance(self.licom[i],QtWidgets.QComboBox):
                 vec.append(self.licom[i].currentText())
 
         return vec
     def guardar(self):
         # Crear un cursor
-        cursor = self.con.cursor()
+        cursor = self.con.conexion.cursor()
         datos=self.cosedatlicom()
         query = "INSERT INTO libcom (numfactur, controlFac, docafectado,fechafactur,fechafactura,Rif,cliente,montoimputotal,exentas,baseimportacion,impuimportacion,basenacional,ISVnacional,facPolar,documento,impunacional) VALUES (%s, %s, %s,%s, %s, %s,%s, %s, %s,%s, %s, %s,%s, %s, %s,%s)"
         cursor.execute(query, datos)
-
         # Confirmar la transacción
-        self.con.commit()
-        # Cerrar la conexión
-        self.con.close()
-
+        self.con.conexion.commit()
+    def cartablaliCom(self):
+        cursor =self.con.conexion.cursor()
+        cursor.execute("SELECT * FROM libcom")
+        results = cursor.fetchall()
+        self.table.setRowCount(len(results))
+        for i, row in enumerate(results):
+            for j, item in enumerate(row):
+                self.tableWidget_2.setItem(i, j, self.QTableWidgetItem(str(item)))
 
 app=QApplication(sys.argv)
 GUI=contador()
