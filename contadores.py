@@ -39,7 +39,7 @@ class contador(QMainWindow):
         # Crear un cursor
         cursor = self.con.cursor()
         datos=self.cosedat()
-        query = "INSERT INTO libcom (numfactur, columna2, columna3,,fechafactur,Rif,cliente,,,baseimportacion,impuimportacion,basenacional,impunacional) VALUES (%s, %s, %s)"
+        query = "INSERT INTO libcom (numfactur, columna2, columna3,,fechafactur,Rif,cliente,montoimputotal,,baseimportacion,impuimportacion,basenacional,impunacional) VALUES (%s, %s, %s)"
         cursor.execute(query, datos)
 
         # Confirmar la transacción
