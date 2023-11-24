@@ -20,13 +20,11 @@ class contador(QMainWindow):
         self.licom=[self.numFac,self.conFac,self.DocAfec,self.dateEdit_3,self.dateEdit_4,self.Rif,self.Cliente,self.montoIncli,self.exten,self.baseIm,self.ISVimpor,self.basenacio,self.ISVnacio,self.comboBox_4,self.comboBox_5,self.comboBox_6]
     def keyPressEvent(self,event):
         if event.key()==Qt.Key_Return:
-            
-            print(type(self.licom[15]))
             for i in range(len(self.licom)):
                 if self.licom[i].hasFocus():
                     # Si es el último QTextEdit en la lista, mueve el foco al primero
                     if i == len(self.licom) - 1:
-                        self.licom[0].setFocus()
+                        self.guardar()
                     else:
                      
                     # De lo contrario, mueve el foco al siguiente QTextEdit
@@ -48,7 +46,7 @@ class contador(QMainWindow):
         # Crear un cursor
         cursor = self.con.cursor()
         datos=self.cosedatlicom()
-        query = "INSERT INTO libcom (numfactur, columna2, columna3,fechafactur,fechafactura,Rif,cliente,montoimputotal,,baseimportacion,impuimportacion,basenacional,impunacional) VALUES (%s, %s, %s)"
+        query = "INSERT INTO libcom (numfactur, controlFac, docafectado,fechafactur,fechafactura,Rif,cliente,montoimputotal,exentas,baseimportacion,impuimportacion,basenacional,ISVnacional,facPolar,documento,impunacional) VALUES (%s, %s, %s,%s, %s, %s,%s, %s, %s,%s, %s, %s,%s, %s, %s,%s)"
         cursor.execute(query, datos)
 
         # Confirmar la transacción
