@@ -17,6 +17,7 @@ class contador(QMainWindow):
         uic.loadUi("lapiz.ui",self)
         self.tableWidget_2.selectionModel().selectionChanged.connect(self.fila_seleccionada)     
         self.cartablaliCom()
+        self.ban=None
         #una lista de los objeto qt de libro de compra
         self.licom=[self.numFac,self.conFac,self.DocAfec,self.dateEdit_3,self.dateEdit_4,self.Rif,self.Cliente,self.montoIncli,self.exten,self.baseIm,self.ISVimpor,self.basenacio,self.ISVnacio,self.comboBox_4,self.comboBox_5,self.comboBox_6]
     def keyPressEvent(self,event):
@@ -47,10 +48,19 @@ class contador(QMainWindow):
         # Crear un cursor
         cursor = self.con.conexion.cursor()
         datos=self.cosedatlicom()
-        query = "INSERT INTO libcom (numfactur, controlFac, docafectado,fechafactur,fechafactura,Rif,cliente,montoimputotal,exentas,baseimportacion,impuimportacion,basenacional,ISVnacional,facPolar,documento,impunacional) VALUES (%s, %s, %s,%s, %s, %s,%s, %s, %s,%s, %s, %s,%s, %s, %s,%s)"
-        cursor.execute(query, datos)
-        # Confirmar la transacción
-        self.con.conexion.commit()
+        if(self.ban is None):
+            query = "INSERT INTO libcom (numfactur, controlFac, docafectado,fechafactur,fechafactura,Rif,cliente,montoimputotal,exentas,baseimportacion,impuimportacion,basenacional,ISVnacional,facPolar,documento,impunacional) VALUES (%s, %s, %s,%s, %s, %s,%s, %s, %s,%s, %s, %s,%s, %s, %s,%s)"
+            cursor.execute(query, datos)
+            # Confirmar la transacción
+            self.con.conexion.commit()
+        else:
+            self.ban=(int(float(self.ban)))
+            query = "UPDATE  libcom SET numfactur=%s, controlFac=%s, docafectado=%s,fechafactur=%s,fechafactura=%s,Rif=%s,cliente=%s,montoimputotal=%s,exentas=%s,baseimportacion=%s,impuimportacion=%s,basenacional=%s,ISVnacional=%s,facPolar=%s,documento=%s,impunacional=%s  WHERE "+str(self.ban)+"=id"
+            cursor.execute(query, datos)
+            # Confirmar la transacción
+            self.con.conexion.commit()
+        self.cartablaliCom()
+        self.liplicom()
     def cartablaliCom(self):
         self.tabla=self.findChild(QTableWidget, 'tableWidget_2') 
         cursor =self.con.conexion.cursor()
@@ -64,9 +74,11 @@ class contador(QMainWindow):
             for j, item in enumerate(row):
                 self.tabla.setItem(i, j, QTableWidgetItem(str(item)))
     def fila_seleccionada(self):
-        rows = self.tableWidget_2.currentRow()+1
+        rows = self.tableWidget_2.currentRow()
+        item = self.tableWidget_2.item(rows, 0).text()
+        self.ban=item
         cursor =self.con.conexion.cursor()
-        cursor.execute("SELECT numfactur,controlFac,docafectado,DATE(fechafactur),DATE(fechafactura),Rif,cliente,montoimputotal,exentas,baseimportacion,impuimportacion,basenacional,ISVnacional,facPolar,documento,impunacional FROM libcom WHERE "+str(rows)+"=id")
+        cursor.execute("SELECT numfactur,controlFac,docafectado,DATE(fechafactur),DATE(fechafactura),Rif,cliente,montoimputotal,exentas,baseimportacion,impuimportacion,basenacional,ISVnacional,facPolar,documento,impunacional FROM libcom WHERE "+str(item)+"=id")
         results = cursor.fetchall()
         
         for i in range(len(self.licom)):
@@ -83,7 +95,11 @@ class contador(QMainWindow):
                     break
                  
                  self.licom[i].setCurrentText(str(results[0][i]))
-        
+    def liplicom(self):
+        for i in range(len(self.licom)):
+            if(isinstance(self.licom[i],QtWidgets.QLineEdit)):
+                self.licom[i].setText("")
+        self.ban=None
 
 app=QApplication(sys.argv)
 GUI=contador()

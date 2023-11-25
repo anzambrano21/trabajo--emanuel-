@@ -17,7 +17,7 @@
    <widget class="QTabWidget" name="tabWidget">
     <property name="geometry">
      <rect>
-      <x>-50</x>
+      <x>0</x>
       <y>0</y>
       <width>1731</width>
       <height>961</height>
@@ -1572,7 +1572,7 @@ background-color: rgb(255, 255, 255);</string>
      <widget class="QTableWidget" name="tableWidget_2">
       <property name="geometry">
        <rect>
-        <x>50</x>
+        <x>0</x>
         <y>0</y>
         <width>1651</width>
         <height>192</height>
@@ -1690,7 +1690,7 @@ background-color: rgb(255, 255, 255);</string>
      <widget class="QFrame" name="frame_5">
       <property name="geometry">
        <rect>
-        <x>30</x>
+        <x>0</x>
         <y>190</y>
         <width>701</width>
         <height>651</height>
